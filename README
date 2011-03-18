@@ -1,0 +1,13 @@
+A collection of enhancements, snippets, and utility mix-ins to ActiveRecord.
+
+ActiveRecord::TransactionalDestroyAll
+
+Adds the #destroy_all! method to all ActiveRecord objects.  This method will destroy all records by
+instantiating them and calling #destroy inside a transaction.  
+
+Returns the collection of objects that were destroyed; each will be frozen to reflect that no changes
+should be made (since they cannot be persisted anymore).
+
+If one or more objects cannot be destroyed (e.g. due to a before_destroy callback returning false)
+then the transaction is rolled back and ActiveRecord::CannotDestroy is raised.
+
